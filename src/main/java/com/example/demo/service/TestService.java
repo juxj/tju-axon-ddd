@@ -20,11 +20,7 @@ public class TestService implements ITestService {
         TestCommand1 cmd1 = TestCommand1.builder().id(UUID.randomUUID().toString()).name(name).build();
         String id = commandGateway.sendAndWait(cmd1);
 
-        TestCommand2 cmd2 = TestCommand2.builder().id(id).name("kkkk").build();
-        return commandGateway.sendAndWait(cmd2);
-
-
-        // TestCommand2 cmd2 = TestCommand2.builder().id(UUID.randomUUID().toString()).name(name).build();
-        // return  commandGateway.sendAndWait(cmd2);
+        TestCommand2 cmd2 = TestCommand2.builder().id(id).name(name).build();
+        return  commandGateway.sendAndWait(cmd2);
     }
 }
