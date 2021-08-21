@@ -6,8 +6,6 @@ import com.example.demo.command.TestEvent;
 import com.example.demo.validator.TestCommandValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.messaging.InterceptorChain;
-import org.axonframework.modelling.command.CommandHandlerInterceptor;
 import org.axonframework.modelling.command.Repository;
 import org.springframework.stereotype.Component;
 
