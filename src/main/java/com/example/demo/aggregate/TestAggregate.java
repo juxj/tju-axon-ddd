@@ -15,7 +15,6 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.modelling.command.CommandHandlerInterceptor;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
 @NoArgsConstructor

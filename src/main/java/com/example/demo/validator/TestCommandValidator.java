@@ -7,7 +7,6 @@ import java.lang.annotation.*;
 
 /**
  * 标有TestCommandValidator的标签，在执行Command之前需要经过{@link TestValidatorCommandHandlerDefinition#wrapHandler(MessageHandlingMember)}）
- *
  */
 @Inherited
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR})

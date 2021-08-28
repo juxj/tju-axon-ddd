@@ -25,20 +25,10 @@ public class AxonConfiguration {
     @Resource
     private EventStore eventStore;
 
-    // @Bean
-    // public HandlerEnhancerDefinition myCustomHandlerEnhancerDefinition() {
-    //     return new MyMethodCommandHandlerDefinition();
-    // }
-
-    // @Bean
-    // public HandlerEnhancerDefinition commandHandlerInterceptorDefinition() {
-    //     return new MethodCommandHandlerDefinition();
-    // }
-    //
-    // @Bean
-    // public HandlerDefinition myHandlerDefinition() {
-    //     return new MyHandlerDefinition();
-    // }
+    @Bean
+    public HandlerDefinition myHandlerDefinition() {
+        return new MyHandlerDefinition();
+    }
 
     @Bean
     public EventSourcingRepository<TestAggregate> testAggregateEventSourcingRepository() {
@@ -47,8 +37,8 @@ public class AxonConfiguration {
 
     @Autowired
     public void setCommandBus() {
-        // commandBus.registerHandlerInterceptor(new AxonMessageHandler());
-        // commandBus.registerDispatchInterceptor(new AxonMessageDispatcher());
+        commandBus.registerHandlerInterceptor(new AxonMessageHandler());
+        commandBus.registerDispatchInterceptor(new TestMessageDispatchInterceptor());
     }
 
     // @Bean

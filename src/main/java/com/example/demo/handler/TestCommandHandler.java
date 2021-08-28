@@ -22,14 +22,16 @@ public class TestCommandHandler {
     }
 
     /**
-     * 此处可以通过Around的方法进行验证
+     * 此处可以通过Around的方法进行验证, 由Command已成为Spring容器的组件，不再需要通过切面的方式进行验证
      * @param cmd cmd
      * @throws Exception .
      */
     @CommandHandler
-    @TestCommandValidator
-    void handler22(TestCommand2 cmd) throws Exception {
+    void handler(TestCommand2 cmd) throws Exception {
         log.info("hello 22. {}", cmd.getName());
+        if (cmd.getName().equals("Jack")) {
+            throw new Exception("....");
+        }
         TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         testAggregateRepository.load(cmd.getId()).execute(x -> x.handle(cmd));
     }
