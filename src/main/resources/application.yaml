@@ -1,6 +1,6 @@
 axon:
   axonserver:
-    servers: localhost
+    servers: axon.lab.juxj.net
 
 spring:
   aop:

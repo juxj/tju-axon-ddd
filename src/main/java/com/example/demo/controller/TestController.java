@@ -18,4 +18,10 @@ public class TestController {
     public String hello() {
         return testService.sayHello("Jack");
     }
+
+
+    @GetMapping("/name")
+    public String name() throws Exception {
+        return testService.getName();
+    }
 }
