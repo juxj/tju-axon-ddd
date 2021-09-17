@@ -7,9 +7,6 @@ import org.axonframework.messaging.MessageHandlerInterceptor;
 import org.axonframework.messaging.unitofwork.UnitOfWork;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-
 @Slf4j
 @Component
 public class AxonMessageHandler implements MessageHandlerInterceptor<CommandMessage<?>> {
@@ -19,7 +16,7 @@ public class AxonMessageHandler implements MessageHandlerInterceptor<CommandMess
     public Object handle(UnitOfWork<? extends CommandMessage<?>> unitOfWork,
                          InterceptorChain interceptorChain) throws Exception {
         CommandMessage<?> message = unitOfWork.getMessage();
-        log.info(message.getCommandName());
+        // log.info(message.getCommandName());
         return interceptorChain.proceed();
     }
 }

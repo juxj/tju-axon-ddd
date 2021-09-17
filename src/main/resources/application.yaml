@@ -1,8 +1,25 @@
 axon:
+  amqp:
+    exchange: axon
+    transaction-mode: publisher_ack
+  eventhandling:
+    processors:
+      amqpEvents:
+        source: inputMessageSource
+        mode: subscribing
   axonserver:
     servers: axon.lab.juxj.net
+
+
 
 spring:
   aop:
     auto: true
     proxy-target-class: true
+  rabbitmq:
+    host: mq.lab.juxj.net
+    port: 5672
+    username: axon
+    password: axon
+    template:
+      exchange: axon

@@ -1,20 +1,26 @@
 package com.example.demo.configuration;
 
 import com.example.demo.aggregate.TestAggregate;
+import com.rabbitmq.client.Channel;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.MethodCommandHandlerDefinition;
-import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.extensions.amqp.eventhandling.AMQPMessageConverter;
+import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPMessageSource;
+import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPPublisher;
 import org.axonframework.messaging.annotation.HandlerDefinition;
-import org.axonframework.messaging.annotation.HandlerEnhancerDefinition;
-import org.axonframework.modelling.command.inspection.MethodCommandHandlerInterceptorDefinition;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Configuration
 public class AxonConfiguration {
 
@@ -29,6 +35,35 @@ public class AxonConfiguration {
     public HandlerDefinition myHandlerDefinition() {
         return new MyHandlerDefinition();
     }
+
+
+    @Bean
+    public SpringAMQPMessageSource inputMessageSource(final AMQPMessageConverter messageConverter) {
+        return new SpringAMQPMessageSource(messageConverter) {
+            @RabbitListener(queues = "events")
+            @Override
+            public void onMessage(final Message message, final Channel channel) {
+                log.info("received external message: {}, channel: {}", message, channel);
+                super.onMessage(message, channel);
+            }
+        };
+    }
+
+    @Bean(initMethod = "start", destroyMethod = "shutDown")
+    public SpringAMQPPublisher publisher(
+            EventBus eventBus,
+            ConnectionFactory connectionFactory,
+            AMQPMessageConverter amqpMessageConverter) {
+        SpringAMQPPublisher publisher = new SelectiveAmqpPublisher(eventBus);
+        // The rest is from axon-spring-autoconfigure...
+        publisher.setExchangeName("axon");
+        publisher.setConnectionFactory(connectionFactory);
+        publisher.setMessageConverter(amqpMessageConverter);
+        publisher.setWaitForPublisherAck(true);
+        return publisher;
+
+    }
+
 
     @Bean
     public EventSourcingRepository<TestAggregate> testAggregateEventSourcingRepository() {
@@ -48,8 +83,6 @@ public class AxonConfiguration {
     //     commandBus.registerDispatchInterceptor(new AxonMessageDispatcher());
     //     return commandBus;
     // }
-
-
 
 
 }

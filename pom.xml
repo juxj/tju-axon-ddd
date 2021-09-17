@@ -15,14 +15,10 @@
     <description>demo</description>
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.5.3</axon.version>
+        <axon.version>4.5</axon.version>
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.axonframework</groupId>
@@ -41,6 +37,24 @@
             <artifactId>axon-messaging</artifactId>
             <version>${axon.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.axonframework.extensions.amqp</groupId>
+            <artifactId>axon-amqp-spring-boot-starter</artifactId>
+            <version>${axon.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

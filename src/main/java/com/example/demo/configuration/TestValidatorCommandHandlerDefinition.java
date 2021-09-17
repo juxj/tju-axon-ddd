@@ -50,7 +50,7 @@ public class TestValidatorCommandHandlerDefinition implements HandlerEnhancerDef
 
         @Override
         public boolean canHandle(Message<?> message) {
-            log.info("x:{}", message.getIdentifier());
+            // log.info("x:{}", message.getIdentifier());
             // return super.canHandle(message);
             // String tmp = ((CommandMessage) message).getCommandName();
             return super.canHandle(message);

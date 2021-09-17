@@ -3,7 +3,6 @@ package com.example.demo.aggregate;
 import com.example.demo.command.TestCommand1;
 import com.example.demo.command.TestCommand2;
 import com.example.demo.command.TestEvent;
-import com.example.demo.service.ITestService2;
 import com.example.demo.validator.TestCommandValidator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +16,8 @@ import org.axonframework.modelling.command.CommandHandlerInterceptor;
 import org.axonframework.spring.stereotype.Aggregate;
 
 @Slf4j
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Aggregate(repository = "testAggregateEventSourcingRepository")
 public class TestAggregate {
 
