@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class TestQuery {
+public class UserQueryById {
 
     private String id;
 }

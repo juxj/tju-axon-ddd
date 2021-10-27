@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.ITestService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.model.User;
+import com.example.demo.service.IUserService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -12,16 +11,21 @@ import javax.annotation.Resource;
 public class TestController {
 
     @Resource
-    private ITestService testService;
+    private IUserService testService;
 
-    @GetMapping("/")
-    public String hello() {
-        return testService.sayHello("Jack");
+    @PostMapping("/{id}/{name}")
+    public void createUser(@PathVariable String id, @PathVariable String name) {
+        testService.createUser(id, name);
+    }
+
+    @PutMapping("/{id}/{name}")
+    public void updateUserName(@PathVariable String id, @PathVariable String name) {
+        testService.updateUserName(id, name);
     }
 
 
-    @GetMapping("/name")
-    public String name() throws Exception {
-        return testService.getName();
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable String id) throws Exception {
+        return testService.getUser(id);
     }
 }

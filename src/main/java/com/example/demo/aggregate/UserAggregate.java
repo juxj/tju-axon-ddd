@@ -1,8 +1,8 @@
 package com.example.demo.aggregate;
 
-import com.example.demo.command.TestCommand1;
-import com.example.demo.command.TestCommand2;
-import com.example.demo.command.TestEvent;
+import com.example.demo.command.CreateUserCommand;
+import com.example.demo.command.UpdateUserNameCommand;
+import com.example.demo.command.UpdateUserNameEvent;
 import com.example.demo.validator.TestCommandValidator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 @Data
 @NoArgsConstructor
 @Aggregate(repository = "testAggregateEventSourcingRepository")
-public class TestAggregate {
+public class UserAggregate {
 
     @AggregateIdentifier
     private String id;
@@ -28,23 +28,23 @@ public class TestAggregate {
 
     @CommandHandler
     @TestCommandValidator
-    public TestAggregate(TestCommand1 cmd) {
+    public UserAggregate(CreateUserCommand cmd) {
         log.info("hello 11. {}", cmd.getName());
-        TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
+        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
     }
 
 
 
     @CommandHandler
-    void handler(TestCommand1 cmd) {
+    void handler(CreateUserCommand cmd) {
         log.info("hello 12. {}", cmd.getName());
-        TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
+        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
     }
 
-    public void handle(TestCommand2 cmd) {
-        TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
+    public void handle(UpdateUserNameCommand cmd) {
+        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
     }
 
@@ -57,7 +57,7 @@ public class TestAggregate {
      * @throws Exception .
      */
     @CommandHandlerInterceptor
-    void intercept(TestCommand2 command, InterceptorChain interceptorChain) throws Exception {
+    void intercept(UpdateUserNameCommand command, InterceptorChain interceptorChain) throws Exception {
         log.info("...");
         interceptorChain.proceed();
     }
@@ -90,7 +90,7 @@ public class TestAggregate {
      * @throws Exception .
      */
     @CommandHandlerInterceptor
-    void intercept(TestCommand1 command, InterceptorChain interceptorChain) throws Exception {
+    void intercept(CreateUserCommand command, InterceptorChain interceptorChain) throws Exception {
         log.info("...");
         interceptorChain.proceed();
     }
@@ -99,7 +99,7 @@ public class TestAggregate {
 
 
     @EventSourcingHandler
-    void on(TestEvent e) {
+    void on(UpdateUserNameEvent e) {
         log.debug("event");
         this.id = e.getId();
         this.name = e.getName();

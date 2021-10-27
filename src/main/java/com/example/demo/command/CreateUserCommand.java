@@ -6,7 +6,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
 @Builder
-public class TestCommand1 {
+public class CreateUserCommand {
 
     @TargetAggregateIdentifier
     private String id;

@@ -1,6 +1,6 @@
 package com.example.demo.handler;
 
-import com.example.demo.command.TestEvent;
+import com.example.demo.command.UpdateUserNameEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.messaging.Message;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class TestEventHandler {
+public class UserEventHandler {
 
     @EventHandler
-    void on(TestEvent e) {
-        log.info("...event handler...{}", e.getId());
+    void on(UpdateUserNameEvent e) {
+        log.info("1");
     }
 
     @MessageHandlerInterceptor

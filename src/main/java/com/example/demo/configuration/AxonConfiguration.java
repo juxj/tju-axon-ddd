@@ -1,9 +1,10 @@
 package com.example.demo.configuration;
 
-import com.example.demo.aggregate.TestAggregate;
+import com.example.demo.aggregate.UserAggregate;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -36,14 +37,19 @@ public class AxonConfiguration {
         return new MyHandlerDefinition();
     }
 
+    @Autowired
+    public void config(EventProcessingConfigurer configurer) {
+        configurer.usingSubscribingEventProcessors();
+    }
 
     @Bean
     public SpringAMQPMessageSource inputMessageSource(final AMQPMessageConverter messageConverter) {
+
         return new SpringAMQPMessageSource(messageConverter) {
             @RabbitListener(queues = "events")
             @Override
             public void onMessage(final Message message, final Channel channel) {
-                log.info("received external message: {}, channel: {}", message, channel);
+                // log.info("received external message: {}, channel: {}", message, channel);
                 super.onMessage(message, channel);
             }
         };
@@ -66,8 +72,8 @@ public class AxonConfiguration {
 
 
     @Bean
-    public EventSourcingRepository<TestAggregate> testAggregateEventSourcingRepository() {
-        return EventSourcingRepository.builder(TestAggregate.class).eventStore(eventStore).build();
+    public EventSourcingRepository<UserAggregate> testAggregateEventSourcingRepository() {
+        return EventSourcingRepository.builder(UserAggregate.class).eventStore(eventStore).build();
     }
 
     @Autowired

@@ -13,7 +13,7 @@ public class TestAspectRunner {
      * This pointcut will call respective before and after method execution
      * points
      */
-    @Pointcut("execution(* com.example.demo.aggregate.TestAggregate.*(..))")
+    @Pointcut("execution(* com.example.demo.aggregate.UserAggregate.*(..))")
     public void logging(){};
 
     @Before("logging()")
