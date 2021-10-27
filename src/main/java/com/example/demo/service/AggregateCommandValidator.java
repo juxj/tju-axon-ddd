@@ -11,6 +11,6 @@ public class AggregateCommandValidator implements IAggregateCommandValidator{
     @Override
     public void validate(Message<?> message) throws Exception{
         // log.info(message.getPayloadType().getName());
-        throw new Exception("手动抛出异常，终止命令执行.") ;
+        // throw new Exception("手动抛出异常，终止命令执行.") ;
     }
 }

@@ -38,6 +38,11 @@
             <version>${axon.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.axonframework.extensions.mongo</groupId>
+            <artifactId>axon-mongo</artifactId>
+            <version>4.4</version>
+        </dependency>
 
         <dependency>
             <groupId>org.axonframework.extensions.amqp</groupId>
@@ -53,6 +58,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
         </dependency>
 
 

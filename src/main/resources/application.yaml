@@ -23,3 +23,7 @@ spring:
     password: axon
     template:
       exchange: axon
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
