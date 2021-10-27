@@ -1,12 +1,11 @@
 package com.example.demo.configuration;
 
-import com.example.demo.validator.TestCommandValidator;
+import com.example.demo.validator.UserNameValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.annotation.HandlerEnhancerDefinition;
 import org.axonframework.messaging.annotation.MessageHandlingMember;
 import org.axonframework.messaging.annotation.WrappedMessageHandlingMember;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -25,7 +24,7 @@ public class TestValidatorCommandHandlerDefinition implements HandlerEnhancerDef
 
     @Override
     public <T> MessageHandlingMember<T> wrapHandler(MessageHandlingMember<T> original) {
-        return original.annotationAttributes(TestCommandValidator.class)
+        return original.annotationAttributes(UserNameValidator.class)
                 .map(attr -> (MessageHandlingMember<T>) new MethodCommandMessageHandlingMember<>(
                         original, attr))
                 .orElse(original);
@@ -50,6 +49,7 @@ public class TestValidatorCommandHandlerDefinition implements HandlerEnhancerDef
 
         @Override
         public boolean canHandle(Message<?> message) {
+            log.info("canHandle");
             // log.info("x:{}", message.getIdentifier());
             // return super.canHandle(message);
             // String tmp = ((CommandMessage) message).getCommandName();

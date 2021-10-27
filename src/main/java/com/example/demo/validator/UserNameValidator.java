@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TestCommandValidator {
+public @interface UserNameValidator {
     String name() default "";
 }

@@ -1,6 +1,6 @@
 package com.example.demo.handler;
 
-import com.example.demo.command.UserNameUpdatedEvent;
+import com.example.demo.cqe.event.UserNameUpdatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
@@ -13,6 +13,6 @@ public class RabbitEventHandler {
 
     @EventHandler
     void on(UserNameUpdatedEvent e) {
-        log.info("2");
+        log.info("...rabbit event handler...");
     }
 }

@@ -1,10 +1,10 @@
 package com.example.demo.aggregate;
 
-import com.example.demo.command.CreateUserCommand;
-import com.example.demo.command.UpdateUserNameCommand;
-import com.example.demo.command.UserNameUpdatedEvent;
-import com.example.demo.command.UserCreateEvent;
-import com.example.demo.validator.TestCommandValidator;
+import com.example.demo.cqe.command.CreateUserCommand;
+import com.example.demo.cqe.command.UpdateUserNameCommand;
+import com.example.demo.cqe.event.UserNameUpdatedEvent;
+import com.example.demo.cqe.event.UserCreateEvent;
+import com.example.demo.validator.UserNameValidator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class UserAggregate {
     private String name;
 
     @CommandHandler
-    @TestCommandValidator
+    @UserNameValidator
     public UserAggregate(CreateUserCommand cmd) {
         UserCreateEvent e = UserCreateEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
@@ -54,8 +54,6 @@ public class UserAggregate {
         interceptorChain.proceed();
     }
 
-
-
     /**
      * 对于TestCommand1拦截不生效
      *
@@ -69,14 +67,11 @@ public class UserAggregate {
         interceptorChain.proceed();
     }
 
-
-
     @EventSourcingHandler
     void on(UserCreateEvent event) {
         this.id = event.getId();
         this.name = event.getName();
     }
-
 
     @EventSourcingHandler
     void on(UserNameUpdatedEvent e) {

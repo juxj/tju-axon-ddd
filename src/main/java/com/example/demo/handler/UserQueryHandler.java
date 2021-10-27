@@ -2,7 +2,7 @@ package com.example.demo.handler;
 
 
 import com.example.demo.aggregate.UserAggregate;
-import com.example.demo.command.UserQueryById;
+import com.example.demo.cqe.query.UserQueryById;
 import com.example.demo.model.User;
 import org.axonframework.modelling.command.Aggregate;
 import org.axonframework.modelling.command.Repository;

@@ -1,7 +1,7 @@
 package com.example.demo.configuration;
 
 
-import com.example.demo.validator.TestCommandValidator;
+import com.example.demo.validator.UserNameValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class AxonCommandBeanPostProcessor implements BeanPostProcessor {
         // log.error(beanName);
         Field[] declaredFields = bean.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
-            TestCommandValidator annotation = declaredField.getAnnotation(TestCommandValidator.class);
+            UserNameValidator annotation = declaredField.getAnnotation(UserNameValidator.class);
             if (null == annotation) {
                 continue;
             }

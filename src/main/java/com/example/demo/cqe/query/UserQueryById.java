@@ -1,4 +1,4 @@
-package com.example.demo.command;
+package com.example.demo.cqe.query;
 
 import lombok.Builder;
 import lombok.Data;

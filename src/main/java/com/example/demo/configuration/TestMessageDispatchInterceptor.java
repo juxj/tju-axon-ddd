@@ -1,5 +1,6 @@
 package com.example.demo.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
 
@@ -11,10 +12,12 @@ import java.util.function.BiFunction;
  * 
  * event dispatch interceptor
  */
+@Slf4j
 public class TestMessageDispatchInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
 
     @Override
     public CommandMessage<?> handle(CommandMessage<?> message) {
+        log.info("TestMessageDispatchInterceptor");
         return MessageDispatchInterceptor.super.handle(message);
     }
 

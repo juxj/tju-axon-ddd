@@ -42,19 +42,31 @@ public class AxonConfiguration {
         configurer.usingSubscribingEventProcessors();
     }
 
+    /**
+     * 接收并处理 RabbitMQ 发出来的消息.
+     * @param messageConverter .
+     * @return .
+     */
     @Bean
     public SpringAMQPMessageSource inputMessageSource(final AMQPMessageConverter messageConverter) {
-
         return new SpringAMQPMessageSource(messageConverter) {
             @RabbitListener(queues = "events")
             @Override
             public void onMessage(final Message message, final Channel channel) {
-                // log.info("received external message: {}, channel: {}", message, channel);
+                log.info("received external message: {}, channel: {}", message, channel);
                 super.onMessage(message, channel);
             }
         };
     }
 
+
+    /**
+     * 连接 RabbitMQ. 用于异步消息发送.
+     * @param eventBus .
+     * @param connectionFactory .
+     * @param amqpMessageConverter .
+     * @return .
+     */
     @Bean(initMethod = "start", destroyMethod = "shutDown")
     public SpringAMQPPublisher publisher(
             EventBus eventBus,
@@ -67,15 +79,22 @@ public class AxonConfiguration {
         publisher.setMessageConverter(amqpMessageConverter);
         publisher.setWaitForPublisherAck(true);
         return publisher;
-
     }
 
 
+    /**
+     * 注册聚合仓库
+     * @return .
+     */
     @Bean
     public EventSourcingRepository<UserAggregate> testAggregateEventSourcingRepository() {
         return EventSourcingRepository.builder(UserAggregate.class).eventStore(eventStore).build();
     }
 
+
+    /**
+     * 在CommandBus中注册消息处理器.
+     */
     @Autowired
     public void setCommandBus() {
         commandBus.registerHandlerInterceptor(new AxonMessageHandler());

@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.command.CreateUserCommand;
-import com.example.demo.command.UpdateUserNameCommand;
-import com.example.demo.command.UserQueryById;
+import com.example.demo.cqe.command.CreateUserCommand;
+import com.example.demo.cqe.command.UpdateUserNameCommand;
+import com.example.demo.cqe.query.UserQueryById;
 import com.example.demo.model.User;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;

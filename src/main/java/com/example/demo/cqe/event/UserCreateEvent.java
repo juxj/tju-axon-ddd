@@ -1,12 +1,13 @@
-package com.example.demo.command;
+package com.example.demo.cqe.event;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class UserNameUpdatedEvent {
+public class UserCreateEvent {
 
     private String id;
+
     private String name;
 }
