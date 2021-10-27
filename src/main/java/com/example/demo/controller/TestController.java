@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class TestController {
 
     @Resource
@@ -22,7 +22,6 @@ public class TestController {
     public void updateUserName(@PathVariable String id, @PathVariable String name) {
         testService.updateUserName(id, name);
     }
-
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable String id) throws Exception {

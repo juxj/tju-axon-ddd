@@ -1,13 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.command;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
 @Builder
-public class User implements Serializable {
+public class UserNameUpdatedEvent {
+
     private String id;
     private String name;
 }

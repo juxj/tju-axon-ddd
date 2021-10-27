@@ -1,7 +1,7 @@
 package com.example.demo.configuration;
 
 
-import com.example.demo.command.UpdateUserNameEvent;
+import com.example.demo.command.UserNameUpdatedEvent;
 import org.axonframework.eventhandling.EventMessage;
 import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPPublisher;
 import org.axonframework.messaging.SubscribableMessageSource;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class SelectiveAmqpPublisher extends SpringAMQPPublisher {
 
     static boolean shouldSend(Class<?> pt) {
-        return UpdateUserNameEvent.class.isAssignableFrom(pt);
+        return UserNameUpdatedEvent.class.isAssignableFrom(pt);
     }
 
     public SelectiveAmqpPublisher(SubscribableMessageSource<EventMessage<?>> messageSource) {

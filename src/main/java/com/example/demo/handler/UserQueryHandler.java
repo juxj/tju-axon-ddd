@@ -4,6 +4,7 @@ package com.example.demo.handler;
 import com.example.demo.aggregate.UserAggregate;
 import com.example.demo.command.UserQueryById;
 import com.example.demo.model.User;
+import org.axonframework.modelling.command.Aggregate;
 import org.axonframework.modelling.command.Repository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,9 @@ public class UserQueryHandler {
 
     @QueryHandler
     public User query(UserQueryById query) {
-        UserAggregate aggregate = (UserAggregate) testAggregateRepository.load(query.getId());
+        Aggregate<UserAggregate> aggregate = testAggregateRepository.load(query.getId());
         if (null == aggregate) return null;
-        return User.builder().id(aggregate.getId()).name(aggregate.getName()).build();
+        return User.builder().id(aggregate.identifierAsString()).name("").build();
     }
 
 }

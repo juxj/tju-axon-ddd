@@ -2,7 +2,8 @@ package com.example.demo.aggregate;
 
 import com.example.demo.command.CreateUserCommand;
 import com.example.demo.command.UpdateUserNameCommand;
-import com.example.demo.command.UpdateUserNameEvent;
+import com.example.demo.command.UserNameUpdatedEvent;
+import com.example.demo.command.UserCreateEvent;
 import com.example.demo.validator.TestCommandValidator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,22 +30,13 @@ public class UserAggregate {
     @CommandHandler
     @TestCommandValidator
     public UserAggregate(CreateUserCommand cmd) {
-        log.info("hello 11. {}", cmd.getName());
-        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
+        UserCreateEvent e = UserCreateEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
     }
 
-
-
-    @CommandHandler
-    void handler(CreateUserCommand cmd) {
-        log.info("hello 12. {}", cmd.getName());
-        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
-        AggregateLifecycle.apply(e);
-    }
 
     public void handle(UpdateUserNameCommand cmd) {
-        UpdateUserNameEvent e = UpdateUserNameEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
+        UserNameUpdatedEvent e = UserNameUpdatedEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
         AggregateLifecycle.apply(e);
     }
 
@@ -63,24 +55,6 @@ public class UserAggregate {
     }
 
 
-    // @CommandHandler
-    // void handler22(TestCommand2 cmd) throws Exception {
-    //     log.info("hello 22. {}", cmd.getName());
-    //     TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
-    //     AggregateLifecycle.apply(e);
-    // }
-    //
-    //
-    // @CommandHandler
-    // void handler23(TestCommand2 cmd) {
-    //     log.info("hello 21. {}", cmd.getName());
-    //     TestEvent e = TestEvent.builder().id(cmd.getId()).name(cmd.getName()).build();
-    //     AggregateLifecycle.apply(e);
-    // }
-
-
-
-
 
     /**
      * 对于TestCommand1拦截不生效
@@ -97,11 +71,15 @@ public class UserAggregate {
 
 
 
+    @EventSourcingHandler
+    void on(UserCreateEvent event) {
+        this.id = event.getId();
+        this.name = event.getName();
+    }
+
 
     @EventSourcingHandler
-    void on(UpdateUserNameEvent e) {
-        log.debug("event");
-        this.id = e.getId();
+    void on(UserNameUpdatedEvent e) {
         this.name = e.getName();
     }
 
