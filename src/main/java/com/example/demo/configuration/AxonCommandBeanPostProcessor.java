@@ -1,7 +1,7 @@
 package com.example.demo.configuration;
 
 
-import com.example.demo.validator.UserNameValidator;
+import com.example.demo.validation.UserNameValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

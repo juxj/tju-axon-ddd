@@ -2,7 +2,6 @@ package com.example.demo.handler;
 
 import com.example.demo.aggregate.UserAggregate;
 import com.example.demo.cqe.command.UpdateUserNameCommand;
-import com.example.demo.validator.UserNameValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.modelling.command.Aggregate;

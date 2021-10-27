@@ -13,8 +13,9 @@ public class AxonMessageHandler implements MessageHandlerInterceptor<CommandMess
 
 
     /**
-     * 所有Command都会在此被拦截.
-     * @param unitOfWork .
+     * 所有Command都会在此被拦截. 并捕获异常，更换异常类型后抛出
+     *
+     * @param unitOfWork       .
      * @param interceptorChain .
      * @return .
      * @throws Exception .
@@ -22,8 +23,13 @@ public class AxonMessageHandler implements MessageHandlerInterceptor<CommandMess
     @Override
     public Object handle(UnitOfWork<? extends CommandMessage<?>> unitOfWork,
                          InterceptorChain interceptorChain) throws Exception {
-        CommandMessage<?> message = unitOfWork.getMessage();
-        log.info("2->AxonMessageHandler::所有Command都会在此被拦截");
-        return interceptorChain.proceed();
+        try {
+            CommandMessage<?> message = unitOfWork.getMessage();
+            log.info("2->AxonMessageHandler::所有Command都会在此被拦截");
+            return interceptorChain.proceed();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 }

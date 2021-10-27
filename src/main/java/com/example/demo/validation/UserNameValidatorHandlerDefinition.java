@@ -1,7 +1,6 @@
-package com.example.demo.configuration;
+package com.example.demo.validation;
 
 import com.example.demo.service.IAggregateCommandValidator;
-import com.example.demo.validator.UserNameValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.annotation.HandlerEnhancerDefinition;
@@ -24,12 +23,12 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class UserNameValidationHandlerDefinition implements HandlerEnhancerDefinition {
+public class UserNameValidatorHandlerDefinition implements HandlerEnhancerDefinition {
 
     @Resource
     private IAggregateCommandValidator validator;
 
-    public UserNameValidationHandlerDefinition() {
+    public UserNameValidatorHandlerDefinition() {
     }
 
     @Override
@@ -85,8 +84,5 @@ public class UserNameValidationHandlerDefinition implements HandlerEnhancerDefin
             return super.hasAnnotation(annotationType);
         }
 
-        public String commandName() {
-            return commandName;
-        }
     }
 }

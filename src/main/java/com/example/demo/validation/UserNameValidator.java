@@ -1,12 +1,11 @@
-package com.example.demo.validator;
+package com.example.demo.validation;
 
-import com.example.demo.configuration.UserNameValidationHandlerDefinition;
 import org.axonframework.messaging.annotation.MessageHandlingMember;
 
 import java.lang.annotation.*;
 
 /**
- * 标有TestCommandValidator的标签，在执行Command之前需要经过{@link UserNameValidationHandlerDefinition#wrapHandler(MessageHandlingMember)}）
+ * 标有TestCommandValidator的标签，在执行Command之前需要经过{@link UserNameValidatorHandlerDefinition#wrapHandler(MessageHandlingMember)}）
  */
 @Inherited
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR})

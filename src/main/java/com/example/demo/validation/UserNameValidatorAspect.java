@@ -1,4 +1,4 @@
-package com.example.demo.validator;
+package com.example.demo.validation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
