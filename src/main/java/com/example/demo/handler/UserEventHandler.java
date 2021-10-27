@@ -1,5 +1,6 @@
 package com.example.demo.handler;
 
+import com.example.demo.cqe.event.UserCreateEvent;
 import com.example.demo.cqe.event.UserNameUpdatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
@@ -21,9 +22,15 @@ public class UserEventHandler {
         log.info("UserNameUpdatedEvent");
     }
 
+    @EventHandler
+    void on(UserCreateEvent e) {
+        log.info("UserCreateEvent");
+    }
+
+
     @MessageHandlerInterceptor
     void intercept(Message<?> message) {
-        log.info("MessageHandlerInterceptor，标签");
+        log.info("3->MessageHandlerInterceptor, {}", message.getPayload().getClass().getName());
     }
 
 }

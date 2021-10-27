@@ -29,19 +29,24 @@ public class AxonCommandBeanPostProcessor implements BeanPostProcessor {
         return this.scanDataAccessAnnotation(bean, beanName);
     }
 
+    /**
+     * 扫描聚合内各方法的注解，符合定义的项目，
+     * @param bean .
+     * @param beanName .
+     * @return .
+     */
     private Object scanDataAccessAnnotation(Object bean, String beanName) {
         // log.error(beanName);
         Field[] declaredFields = bean.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
             UserNameValidator annotation = declaredField.getAnnotation(UserNameValidator.class);
-            if (null == annotation) {
-                continue;
-            }
-            declaredField.setAccessible(true);
-            try {
-                declaredField.set(bean, annotation);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            if (null != annotation) {
+                declaredField.setAccessible(true);
+                try {
+                    declaredField.set(bean, annotation);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return bean;

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.InterceptorChain;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -67,8 +68,15 @@ public class UserAggregate {
         interceptorChain.proceed();
     }
 
+
+    /**
+     * 聚合内至少有一个EventHandle或 EventSourcingHandler
+     *
+     * @param event .
+     */
     @EventSourcingHandler
     void on(UserCreateEvent event) {
+        log.info("UserCreateEvent::EventSourcingHandler");
         this.id = event.getId();
         this.name = event.getName();
     }

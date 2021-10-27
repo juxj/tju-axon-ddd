@@ -12,11 +12,18 @@ import org.springframework.stereotype.Component;
 public class AxonMessageHandler implements MessageHandlerInterceptor<CommandMessage<?>> {
 
 
+    /**
+     * 所有Command都会在此被拦截.
+     * @param unitOfWork .
+     * @param interceptorChain .
+     * @return .
+     * @throws Exception .
+     */
     @Override
     public Object handle(UnitOfWork<? extends CommandMessage<?>> unitOfWork,
                          InterceptorChain interceptorChain) throws Exception {
         CommandMessage<?> message = unitOfWork.getMessage();
-        // log.info(message.getCommandName());
+        log.info("2->AxonMessageHandler::所有Command都会在此被拦截");
         return interceptorChain.proceed();
     }
 }

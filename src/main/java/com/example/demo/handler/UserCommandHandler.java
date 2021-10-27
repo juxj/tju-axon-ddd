@@ -35,7 +35,6 @@ public class UserCommandHandler {
      * @throws Exception .
      */
     @CommandHandler
-    @UserNameValidator
     void handle(UpdateUserNameCommand cmd) throws Exception {
         Aggregate<UserAggregate> aggregate = testAggregateRepository.load(cmd.getId());
         if (null == aggregate) return;

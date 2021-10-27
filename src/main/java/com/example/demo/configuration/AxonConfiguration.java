@@ -98,7 +98,7 @@ public class AxonConfiguration {
     @Autowired
     public void setCommandBus() {
         commandBus.registerHandlerInterceptor(new AxonMessageHandler());
-        commandBus.registerDispatchInterceptor(new TestMessageDispatchInterceptor());
+        commandBus.registerDispatchInterceptor(new AxonMessageDispatchInterceptor());
     }
 
     // @Bean

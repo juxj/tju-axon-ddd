@@ -13,11 +13,11 @@ import java.util.function.BiFunction;
  * event dispatch interceptor
  */
 @Slf4j
-public class TestMessageDispatchInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
+public class AxonMessageDispatchInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
 
     @Override
     public CommandMessage<?> handle(CommandMessage<?> message) {
-        log.info("TestMessageDispatchInterceptor");
+        log.info("1->::UserMessageDispatchInterceptor:: 拦截所有Command");
         return MessageDispatchInterceptor.super.handle(message);
     }
 
