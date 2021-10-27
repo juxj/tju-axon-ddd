@@ -6,6 +6,10 @@ import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * 处理来自RabbitMQ的事件.
+ */
 @Slf4j
 @Component
 @ProcessingGroup("amqpEvents")
