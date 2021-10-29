@@ -21,10 +21,10 @@ import org.springframework.stereotype.Component;
 public class UserCommandHandler {
 
 
-    private final Repository<UserAggregate> testAggregateRepository;
+    private final Repository<UserAggregate> userAggregateRepository;
 
-    public UserCommandHandler(Repository<UserAggregate> testAggregateRepository) {
-        this.testAggregateRepository = testAggregateRepository;
+    public UserCommandHandler(Repository<UserAggregate> userAggregateRepository) {
+        this.userAggregateRepository = userAggregateRepository;
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserCommandHandler {
      */
     @CommandHandler
     void handle(UpdateUserNameCommand cmd) throws Exception {
-        Aggregate<UserAggregate> aggregate = testAggregateRepository.load(cmd.getId());
+        Aggregate<UserAggregate> aggregate = userAggregateRepository.load(cmd.getId());
         if (null == aggregate) return;
         aggregate.execute(x -> x.handle(cmd));
     }
