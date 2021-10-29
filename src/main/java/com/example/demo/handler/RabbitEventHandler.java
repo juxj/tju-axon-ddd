@@ -19,4 +19,5 @@ public class RabbitEventHandler {
     void on(UserNameUpdatedEvent e) {
         log.info("...rabbit event handler...");
     }
+
 }

@@ -17,6 +17,7 @@ import org.axonframework.extensions.amqp.eventhandling.spring.SpringAMQPPublishe
 import org.axonframework.extensions.mongo.DefaultMongoTemplate;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.messaging.annotation.HandlerDefinition;
+import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @Configuration
-public class AxonConfiguration {
+public class AxonCommonConfiguration {
 
 
     @Resource
@@ -36,6 +37,12 @@ public class AxonConfiguration {
 
     @Resource
     private EventStore eventStore;
+
+    @Resource
+    private AxonConfiguration configuration;
+
+    @Resource
+    private EventStorageEngine storageEngine;
 
     @Bean
     public HandlerDefinition myHandlerDefinition() {
@@ -87,14 +94,13 @@ public class AxonConfiguration {
     }
 
     /**
-     * Axon provides an event store `EmbeddedEventStore`. It delegates actual storage and retrieval of events to an `EventStorageEngine`.
+     * Axon provides an event store `EmbeddedEventStore`.
+     * It delegates actual storage and retrieval of events to an `EventStorageEngine`.
      *
-     * @param storageEngine .
-     * @param configuration .
      * @return EmbeddedEventStore
      */
     @Bean
-    public EmbeddedEventStore eventStore(EventStorageEngine storageEngine, org.axonframework.spring.config.AxonConfiguration configuration) {
+    public EmbeddedEventStore eventStore() {
         return EmbeddedEventStore.builder()
                 .storageEngine(storageEngine)
                 .messageMonitor(configuration.messageMonitor(EventStore.class, "eventStore"))
